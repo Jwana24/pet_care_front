@@ -15,7 +15,7 @@ const Navbar = () => {
           <Link className="ml-5" href='/login'>Connexion</Link>
           <Link
             className="ml-5 px-4 py-2 text-white bg-sky-700 hover:bg-sky-900 rounded-r-lg rounded-l-lg"
-            href='/login'
+            href='/signup'
           >
             Inscription
           </Link>

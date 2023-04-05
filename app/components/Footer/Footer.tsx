@@ -11,7 +11,7 @@ const Footer = () => {
           <Link href='/'>Pet care</Link>
         </div>
         <footer className="GeneralLink">
-          <Link className="mr-5 " href='/login'>Inscription</Link>
+          <Link className="mr-5 " href='/signup'>Inscription</Link>
           <Link className="mr-5" href='/login'>Connexion</Link>
           <Link href='/login'>Carnet</Link>
         </footer>

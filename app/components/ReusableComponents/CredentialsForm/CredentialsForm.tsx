@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from "next/link";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
@@ -9,9 +10,10 @@ interface PropsForm {
   subtitlePage: string
   textBtn: string
   isSignUpForm?: boolean
+  urlToRedirect: string
 }
 
-const Form = ({ titlePage, subtitlePage, textBtn, isSignUpForm }: PropsForm) => {
+const CredentialsForm = ({ titlePage, subtitlePage, textBtn, isSignUpForm, urlToRedirect }: PropsForm) => {
   const [passwordValue, setPasswordValue] = useState({
     password: "",
     confirmPassword: "",
@@ -36,9 +38,9 @@ const Form = ({ titlePage, subtitlePage, textBtn, isSignUpForm }: PropsForm) => 
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Ou{' '}
-            <a href="/login" className="font-medium text-sky-700 hover:text-sky-900">
+            <Link href={urlToRedirect} className="font-medium text-sky-700 hover:text-sky-900">
               {subtitlePage}
-            </a>
+            </Link>
           </p>
         </div>
 
@@ -111,15 +113,17 @@ const Form = ({ titlePage, subtitlePage, textBtn, isSignUpForm }: PropsForm) => 
             }
           </div>
 
-          <div className="flex items-center justify-end mt-2 mb-5">
-            <div className="text-sm">
-              <a href="#" className="font-medium text-sky-700 hover:text-sky-900">
-                Mot de passe oublié ?
-              </a>
+          {!isSignUpForm &&
+            <div className="flex items-center justify-end mt-2">
+              <div className="text-sm">
+                <a href="#" className="font-medium text-sky-700 hover:text-sky-900">
+                  Mot de passe oublié ?
+                </a>
+              </div>
             </div>
-          </div>
+          }
 
-          <div>
+          <div className="mt-5">
             <button
               type="submit"
               className="group relative flex w-full justify-center rounded-md bg-sky-700 px-3 py-2 text-sm font-semibold text-white hover:bg-sky-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -136,4 +140,4 @@ const Form = ({ titlePage, subtitlePage, textBtn, isSignUpForm }: PropsForm) => 
   )
 }
 
-export default Form
+export default CredentialsForm

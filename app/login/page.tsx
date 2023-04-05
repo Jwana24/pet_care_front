@@ -1,12 +1,13 @@
-import Form from "@/app/components/ReusableComponents/Form/Form";
+import CredentialsForm from "@/app/components/ReusableComponents/CredentialsForm/CredentialsForm";
 
 const Login = () => {
     return (
         <div>
-            <Form
+            <CredentialsForm
               titlePage="Connectez-vous à votre compte"
               subtitlePage="créez votre compte ici"
               textBtn="Connexion"
+              urlToRedirect="/signup"
             />
         </div>
     )
