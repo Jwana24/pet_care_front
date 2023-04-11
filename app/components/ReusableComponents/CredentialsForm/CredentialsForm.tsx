@@ -5,7 +5,7 @@ import Link from "next/link";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
-interface PropsForm {
+interface ICredentialsForm {
   titlePage: string
   subtitlePage: string
   textBtn: string
@@ -13,7 +13,7 @@ interface PropsForm {
   urlToRedirect: string
 }
 
-const CredentialsForm = ({ titlePage, subtitlePage, textBtn, isSignUpForm, urlToRedirect }: PropsForm) => {
+const CredentialsForm = ({ titlePage, subtitlePage, textBtn, isSignUpForm, urlToRedirect }: ICredentialsForm) => {
   const [passwordValue, setPasswordValue] = useState({
     password: "",
     confirmPassword: "",
