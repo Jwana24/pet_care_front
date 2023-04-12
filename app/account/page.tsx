@@ -1,6 +1,8 @@
 const Account = () => {
   return (
-    <div>here layout : navigation à gauche + formulaire à droite</div>
+    <div className="w-full p-5">
+      La page du compte
+    </div>
   )
 }
 

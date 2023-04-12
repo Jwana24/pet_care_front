@@ -16,23 +16,24 @@ interface IMenuElement {
 interface IMenuElementItem {
   iconMenu: ReactElement
   nameLinkMenu: string
+  href: string
 }
 
 const SidebarAccount = () => {
   const menuElements: Array<IMenuElement> = [
     {category : "Animal", items : [
-      { iconMenu: <BookOpenIcon />, nameLinkMenu: "Carnet de santé" },
-      { iconMenu: <DocumentPlusIcon />, nameLinkMenu: "Ajouter un animal" },
+      { iconMenu: <BookOpenIcon />, nameLinkMenu: "Carnet de santé", href: "/account/health-book" },
+      { iconMenu: <DocumentPlusIcon />, nameLinkMenu: "Ajouter un animal", href: "/account/add-animal" },
     ]},
     {category : "Paramètres", items : [
-      { iconMenu: <IdentificationIcon />, nameLinkMenu: "Informations personnelles" },
-      { iconMenu: <Cog6ToothIcon />, nameLinkMenu: "Paramètres du compte" },
-      { iconMenu: <ArrowRightOnRectangleIcon />, nameLinkMenu: "Déconnexion" },
+      { iconMenu: <IdentificationIcon />, nameLinkMenu: "Informations personnelles", href: "/account/personnal-informations" },
+      { iconMenu: <Cog6ToothIcon />, nameLinkMenu: "Paramètres du compte", href: "/account/account-parameters" },
+      { iconMenu: <ArrowRightOnRectangleIcon />, nameLinkMenu: "Déconnexion", href: "/account/health-book" },
     ]}
   ]
 
   return (
-    <div className="flex text-gray-800 mr-5">
+    <div className="flex text-gray-800">
       <div className="flex flex-col top-0 left-0 w-64 bg-gray-50 border-r">
         <div className="flex items-center justify-center h-14 border-b">
           <div>Mon compte</div>
@@ -50,7 +51,7 @@ const SidebarAccount = () => {
                   <div key={itemIndex}>
                     <li>
                       <Link
-                        href="#"
+                        href={item.href}
                         className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600
                           hover:text-gray-800 border-l-4 border-transparent hover:border-main-color pr-6"
                       >
