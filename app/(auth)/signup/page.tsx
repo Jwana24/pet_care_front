@@ -1,4 +1,4 @@
-import CredentialsForm from "@/app/components/ReusableComponents/CredentialsForm/CredentialsForm";
+import CredentialsForm from "@/app/components/ReusableComponents/Form/CredentialsForm";
 
 const SignUp = () => {
   return (
