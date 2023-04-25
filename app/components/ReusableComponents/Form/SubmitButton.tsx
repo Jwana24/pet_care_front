@@ -17,8 +17,8 @@ const InputField: FC<IInputField> = ({
       <button
         type="submit"
         disabled={!isValidForm}
-        className="group relative flex w-full justify-center rounded-md bg-sky-700 px-3 py-2 text-sm font-semibold
-          text-white hover:bg-sky-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+        className="group relative flex w-full justify-center rounded-md bg-dark-main-color px-3 py-2 text-sm font-semibold
+          text-white hover:bg-darker-main-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
           focus-visible:outline-indigo-600 disabled:bg-zinc-400"
         {...rest}
       >

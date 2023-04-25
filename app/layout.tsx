@@ -1,7 +1,5 @@
-import './globals.scss';
 import Navbar from "@/app/components/Navbar/Navbar";
 import Footer from "@/app/components/Footer/Footer";
-
 import './globals.scss';
 
 export const metadata = {

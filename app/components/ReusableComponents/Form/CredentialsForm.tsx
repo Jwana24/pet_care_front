@@ -69,7 +69,8 @@ const CredentialsForm = ({ titlePage, subtitlePage, textBtn, isSignUpForm = fals
 
         <form
           onSubmit={handleSubmit(handleRegistration)}
-          className="mt-8 block max-w p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+          className="mt-8 block max-w p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800
+            dark:border-gray-700 dark:hover:bg-gray-700"
         >
           <div className="rounded-md">
             <InputField

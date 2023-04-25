@@ -35,7 +35,7 @@ const PasswordField: FC<IPasswordField> = ({
             ring-gray-300 sm:text-sm sm:leading-6"
           {...rest}
         />
-        <small className="text-red-600">{errors}</small>
+        <small className="text-red-600 font-medium">{errors}</small>
         <div className="icon_button absolute right-4 top-11" onClick={handleClickShowPassword}>
           {passwordValue ? (
             <EyeIcon className="h-6 text-gray-400" />
