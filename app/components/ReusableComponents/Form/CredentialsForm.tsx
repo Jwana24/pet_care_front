@@ -9,9 +9,9 @@ import * as yup from "yup";
 
 // components
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import InputField from "@/app/components/ReusableComponents/Form/InputField";
-import PasswordField from "@/app/components/ReusableComponents/Form/PasswordField";
-import SubmitButton from "@/app/components/ReusableComponents/Form/SubmitButton";
+import InputField from "@/app/components/ReusableComponents/Fields/InputField";
+import PasswordField from "@/app/components/ReusableComponents/Fields/PasswordField";
+import SubmitButton from "@/app/components/ReusableComponents/Fields/SubmitButton";
 
 interface ICredentialsForm {
   titlePage: string

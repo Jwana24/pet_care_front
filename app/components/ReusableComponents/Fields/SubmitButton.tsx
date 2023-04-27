@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, FC, ReactElement } from "react";
+import React, { ButtonHTMLAttributes, ReactElement } from "react";
 
 interface IInputField extends ButtonHTMLAttributes<HTMLButtonElement> {
   isValidForm: boolean
@@ -6,12 +6,12 @@ interface IInputField extends ButtonHTMLAttributes<HTMLButtonElement> {
   textBtn: string
 }
 
-const InputField: FC<IInputField> = ({
+const InputField = ({
   isValidForm,
   iconBtn,
   textBtn,
   ...rest
-}) => {
+}: IInputField) => {
   return (
     <div className="mt-5">
       <button
@@ -28,7 +28,5 @@ const InputField: FC<IInputField> = ({
     </div>
   )
 }
-
-InputField.displayName = 'InputField';
 
 export default InputField;

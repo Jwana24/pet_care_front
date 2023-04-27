@@ -1,4 +1,4 @@
-import React, { FC, InputHTMLAttributes, useState } from "react";
+import React, { InputHTMLAttributes, useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 interface IPasswordField extends InputHTMLAttributes<HTMLInputElement> {
@@ -9,14 +9,14 @@ interface IPasswordField extends InputHTMLAttributes<HTMLInputElement> {
   errors: string | undefined
 }
 
-const PasswordField: FC<IPasswordField> = ({
+const PasswordField = ({
   label,
   name,
   autoComplete,
   register,
   errors,
   ...rest
-}) => {
+}: IPasswordField) => {
   const [passwordValue, setPasswordValue] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -47,7 +47,5 @@ const PasswordField: FC<IPasswordField> = ({
     </div>
   )
 }
-
-PasswordField.displayName = 'PasswordField';
 
 export default PasswordField;

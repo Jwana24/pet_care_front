@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Chat from '../../components/assets/chat.jpg';
-import InputField from "@/app/components/ReusableComponents/Form/InputField";
+import InputField from "@/app/components/ReusableComponents/Fields/InputField";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -55,7 +55,7 @@ const HealthBook = () => {
   ]
 
   return (
-    <div className="h-full w-full m-8 block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800
+    <div className="w-full m-8 block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800
       dark:border-gray-700 dark:hover:bg-gray-700"
     >
       <div className="flex justify-center items-center h-14 bg-dark-main-color rounded-tl-lg rounded-tr-lg text-3xl
@@ -63,34 +63,33 @@ const HealthBook = () => {
       >
         Carnet de santé
       </div>
-      <form onSubmit={handleSubmit(submitHealthBookInformations)} className="p-5">
-        <div className="mt-5 grid grid-cols-1 lg:grid-cols-12">
-          <div className="min-w-[16rem] col-span-12 lg:col-span-4 lg:row-span-5 h-80 mb-5 lg:mb-0 lg:mr-5">
-            <Image
-              src={Chat}
-              alt="Picture of the animal"
-              width={200}
-              height={180}
-              className="w-full h-full object-top object-cover rounded"
-            />
+      <div className="p-5 mt-5 grid grid-cols-1 lg:grid-cols-12">
+        <div className="min-w-[16rem] h-80 col-span-12 lg:col-span-4 mb-5 lg:mb-0 lg:mr-5">
+          <Image
+            src={Chat}
+            alt="Picture of the animal"
+            width={200}
+            height={180}
+            className="w-full h-full object-top object-cover rounded"
+          />
+        </div>
+
+        <div className="col-span-12 lg:col-span-8">
+          <div className="grid grid-cols-2 lg:grid-cols-1">
+            {generalFields.map((field, index) => (
+              <div key={index} className={field.classnames}>
+                <p className="text-gray-500 italic">{field.label}</p>
+                <p>{field.value}</p>
+              </div>
+            ))}
           </div>
-          <div className="col-span-12 lg:col-span-8">
-            <div className="grid grid-cols-2 lg:grid-cols-1">
-              {generalFields.map((field, index) => (
-                <div key={index} className={field.classnames}>
-                  <p className="text-gray-500 italic">{field.label}</p>
-                  <p>{field.value}</p>
-                </div>
-              ))}
-            </div>
-            <div className="grid grid-cols-6">
-              {complementaryField.map((field, index) => (
-                <div key={index} className={`mb-5 ${field.classnames}`}>
-                  <p className="text-gray-500 italic">{field.label}</p>
-                  <p>{field.value}</p>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-6">
+            {complementaryField.map((field, index) => (
+              <div key={index} className={`mb-5 ${field.classnames}`}>
+                <p className="text-gray-500 italic">{field.label}</p>
+                <p>{field.value}</p>
+              </div>
+            ))}
           </div>
           <div className="mt-5 col-span-12">
             <div className="grid grid-cols-4">
@@ -103,7 +102,7 @@ const HealthBook = () => {
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   )
 }
