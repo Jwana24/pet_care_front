@@ -8,10 +8,9 @@ const Authentication = () => {
   const router = useRouter();
 
   async function fetchAuthentication() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
+        "Content-Type": "application/json"
       }
     });
     if (res.ok) {

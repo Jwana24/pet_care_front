@@ -1,7 +1,7 @@
 'use client';
 
 // modules
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import Link from "next/link";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -37,7 +37,7 @@ const validationSchema = yup.object({
     .oneOf(
     [yup.ref("password"), undefined],
     "La confirmation du mot de passe ne correspond pas"
-    )
+    ),
 });
 
 const CredentialsForm = ({ titlePage, subtitlePage, textBtn, isSignUpForm = false, urlToRedirect }: ICredentialsForm) => {
@@ -47,9 +47,15 @@ const CredentialsForm = ({ titlePage, subtitlePage, textBtn, isSignUpForm = fals
     context: { isSignUpForm: isSignUpForm }
   })
 
-  const handleRegistration = (data: any) => {
-    console.log(data)
-    reset();
+  const handleRegistration = async (e: SyntheticEvent, data: IFormInputs) => {
+    // e.preventDefault();
+    console.log(JSON.stringify(data));
+    // await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+    //   method: "POST",
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(data)
+    // })
+    // reset();
   }
 
   return (
@@ -69,8 +75,7 @@ const CredentialsForm = ({ titlePage, subtitlePage, textBtn, isSignUpForm = fals
 
         <form
           onSubmit={handleSubmit(handleRegistration)}
-          className="mt-8 block max-w p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800
-            dark:border-gray-700 dark:hover:bg-gray-700"
+          className="mt-8 block max-w p-6 bg-white border border-gray-200 rounded-lg shadow"
         >
           <div className="rounded-md">
             <InputField
