@@ -8,11 +8,11 @@ export const metadata = {
   viewport: 'width=device-width, initial-scale=1'
 }
 
-export default function RootLayout({
-  children,
-}: {
+interface IGeneralLayout {
   children: React.ReactNode
-}) {
+}
+
+export default function RootLayout({ children }: IGeneralLayout) {
   return (
     <html lang="fr">
       <body className="flex flex-col min-h-screen">

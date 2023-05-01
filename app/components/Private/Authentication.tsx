@@ -1,0 +1,37 @@
+"use client";
+
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+
+const Authentication = () => {
+  const [authentication, setAuthentication] = useState();
+  const router = useRouter();
+
+  async function fetchAuthentication() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+    if (res.ok) {
+      const json = await res.json();
+      setAuthentication(json);
+    } else {
+      await router.push("/login");
+    }
+  }
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    router.push("/");
+  }
+
+  return (
+    <div>
+
+    </div>
+  )
+}
+
+export default Authentication;
