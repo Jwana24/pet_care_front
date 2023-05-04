@@ -1,11 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
-export const AuthContext = React.createContext(null);
+export interface IContext {
+  authentication: null | string
+  setAuthentication: Dispatch<SetStateAction<string | null>>
+}
 
-const AuthProvider = ({ children }) => {
+interface IProvider {
+  children: ReactNode
+}
+
+export const AuthContext = React.createContext<null | IContext>(null);
+
+const AuthProvider = ({ children }: IProvider) => {
   const [authentication, setAuthentication] = useState(localStorage.getItem('accessToken'));
   const router = useRouter();
   const pathname = usePathname();

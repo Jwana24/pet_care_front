@@ -9,7 +9,7 @@ import { AuthContext } from "@/app/components/Private/AuthProvider";
 
 const Login = () => {
   const router = useRouter();
-  const { setAuthentication } = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
 
   const handleLogin = async (data: IFormInputs): Promise<true|IApiError> => {
     return await axios(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
@@ -20,7 +20,7 @@ const Login = () => {
       .then(async (response) => {
         const authToken = await response.data.accessToken;
         localStorage.setItem('accessToken', authToken);
-        setAuthentication(authToken);
+        authContext?.setAuthentication(authToken);
         await router.push('/');
         return true;
       })

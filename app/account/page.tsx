@@ -1,8 +1,7 @@
 'use client';
 
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import AuthProvider, { AuthContext } from "@/app/components/Private/AuthProvider";
+import React, { useEffect, useState } from "react";
 import {
   ArrowRightOnRectangleIcon,
   BookOpenIcon,
@@ -31,10 +30,8 @@ interface IPetOwner {
 
 const Account = () => {
   const [userData, setUserData] = useState<IUser>();
-  const [isAuth, setIsAuth] = useState(false);
-  const authentication = useContext(AuthContext);
 
-  const userAuthentication = async () => {
+  const getConnectedUser = async () => {
     await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` }
     })
@@ -45,11 +42,9 @@ const Account = () => {
     (
       async () => {
         try {
-          await userAuthentication();
-          setIsAuth(true);
+          await getConnectedUser();
         } catch (e) {
           console.error(e);
-          setIsAuth(false);
         }
       }
     )();

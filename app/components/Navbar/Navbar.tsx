@@ -2,14 +2,13 @@
 
 import React, { useContext } from "react";
 import Link from "next/link";
-import { AuthContext } from "@/app/components/Private/AuthProvider";
+import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { HomeIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
 
 import './Navbar.scss';
 
 const Navbar = () => {
-  const isConnected: boolean = true;
-  const { authentication } = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
 
   return (
     <div className="flex items-center navbar">
@@ -22,7 +21,7 @@ const Navbar = () => {
             <div className="w-5 mr-2"><HomeIcon /></div>
             Accueil
           </Link>
-          {authentication === null ? (
+          {authContext?.authentication === null ? (
             <>
               <Link className="ml-5" href='/login'>Connexion</Link>
               <Link
