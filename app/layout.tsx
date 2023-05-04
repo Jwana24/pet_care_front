@@ -1,6 +1,7 @@
 import Navbar from "@/app/components/Navbar/Navbar";
 import Footer from "@/app/components/Footer/Footer";
 import './globals.scss';
+import AuthProvider from "@/app/components/Private/AuthProvider";
 
 export const metadata = {
   title: 'Pet care : Carnet de santé de mon animal',
@@ -16,9 +17,11 @@ export default function RootLayout({ children }: IGeneralLayout) {
   return (
     <html lang="fr">
       <body className="flex flex-col min-h-screen">
+      <AuthProvider>
         <Navbar />
         {children}
         <Footer />
+      </AuthProvider>
       </body>
     </html>
   )

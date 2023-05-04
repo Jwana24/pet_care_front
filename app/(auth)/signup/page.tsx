@@ -1,6 +1,12 @@
-import CredentialsForm from "@/app/components/ReusableComponents/Form/CredentialsForm";
+import { IApiError } from "@/app/components/types";
+import CredentialsForm, { IFormInputs } from "@/app/components/ReusableComponents/Form/CredentialsForm";
 
 const SignUp = () => {
+  const handleRegister = async (data: IFormInputs): Promise<true|IApiError> => {
+    console.log(data)
+    return true;
+  }
+
   return (
     <div>
       <CredentialsForm
@@ -9,6 +15,7 @@ const SignUp = () => {
         textBtn="Inscription"
         isSignUpForm
         urlToRedirect="/login"
+        onSubmit={handleRegister}
       />
     </div>
   )

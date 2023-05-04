@@ -1,12 +1,12 @@
-import React, { ReactElement } from "react";
-import Link from "next/link";
+import React, { ReactElement } from 'react';
+import Link from 'next/link';
 import {
   BookOpenIcon,
   DocumentPlusIcon,
   IdentificationIcon,
   Cog6ToothIcon,
   ArrowRightOnRectangleIcon
-} from "@heroicons/react/24/outline";
+} from '@heroicons/react/24/outline';
 
 interface IMenuElement {
   category: string
@@ -21,14 +21,26 @@ interface IMenuElementItem {
 
 const SidebarAccount = () => {
   const menuElements: Array<IMenuElement> = [
-    {category : "Animal", items : [
-      { iconMenu: <BookOpenIcon />, nameLinkMenu: "Carnet de santé", href: "/account/health-book" },
-      { iconMenu: <DocumentPlusIcon />, nameLinkMenu: "Ajouter un animal", href: "/account/add-animal" },
+    {category : 'Animal', items : [
+      { iconMenu: <BookOpenIcon />,     nameLinkMenu: 'Carnet de santé',   href: '/account/health-book' },
+      { iconMenu: <DocumentPlusIcon />, nameLinkMenu: 'Ajouter un animal', href: '/account/add-animal' },
     ]},
-    {category : "Paramètres", items : [
-      { iconMenu: <IdentificationIcon />, nameLinkMenu: "Informations personnelles", href: "/account/personnal-informations" },
-      { iconMenu: <Cog6ToothIcon />, nameLinkMenu: "Paramètres du compte", href: "/account/account-parameters" },
-      { iconMenu: <ArrowRightOnRectangleIcon />, nameLinkMenu: "Déconnexion", href: "/account/health-book" },
+    {category : 'Paramètres', items : [
+      {
+        iconMenu: <IdentificationIcon />,
+        nameLinkMenu: 'Informations personnelles',
+        href: '/account/personnal-informations'
+      },
+      {
+        iconMenu: <Cog6ToothIcon />,
+        nameLinkMenu: 'Paramètres du compte',
+        href: '/account/account-parameters'
+      },
+      {
+        iconMenu: <ArrowRightOnRectangleIcon />,
+        nameLinkMenu: 'Déconnexion',
+        href: '/account/health-book'
+      },
     ]}
   ]
 

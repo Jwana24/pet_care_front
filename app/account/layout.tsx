@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarAccount from "@/app/components/SidebarAccount/SidebarAccount";
+import AuthProvider from "@/app/components/Private/AuthProvider";
 
 const SidebarAccountLayout = ({ children }: any) => {
   return (
