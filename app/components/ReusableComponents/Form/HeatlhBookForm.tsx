@@ -15,9 +15,7 @@ interface IFieldElement {
 
 const HeatlhBookForm = ({ titlePage, imgSrc, handleSubmit, fields }: IHealthBookForm) => {
   return (
-    <div className="w-full m-8 block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800
-      dark:border-gray-700 dark:hover:bg-gray-700"
-    >
+    <div className="w-full m-8 block max-w bg-white border border-gray-200 rounded-lg shadow">
       <div className="flex justify-center items-center h-14 bg-dark-main-color rounded-tl-lg rounded-tr-lg text-3xl
         text-white uppercase tracking-widest"
       >

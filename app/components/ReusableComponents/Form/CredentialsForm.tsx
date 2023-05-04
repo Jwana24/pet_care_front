@@ -1,11 +1,12 @@
 'use client';
 
 // modules
-import React from 'react';
+import React, { BaseSyntheticEvent } from "react";
 import Link from "next/link";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { IApiError } from "@/app/components/types";
 
 // components
 import { LockClosedIcon } from "@heroicons/react/20/solid";
@@ -19,13 +20,14 @@ interface ICredentialsForm {
   textBtn: string
   isSignUpForm?: boolean
   urlToRedirect: string
+  onSubmit: (data: IFormInputs) => Promise<true|IApiError>
 }
 
-type IFormInputs = {
+export interface IFormInputs {
   email: string
   password: string
   confirmPassword?: string
-};
+}
 
 const validationSchema = yup.object({
   email: yup.string().email("L'email n'est pas valide").required("L'email est requis"),
@@ -37,19 +39,24 @@ const validationSchema = yup.object({
     .oneOf(
     [yup.ref("password"), undefined],
     "La confirmation du mot de passe ne correspond pas"
-    )
+    ),
 });
 
-const CredentialsForm = ({ titlePage, subtitlePage, textBtn, isSignUpForm = false, urlToRedirect }: ICredentialsForm) => {
-  const { handleSubmit, register, formState: { isValid, errors }, reset } = useForm<IFormInputs>({
+const CredentialsForm = ({ titlePage, subtitlePage, textBtn, isSignUpForm = false, urlToRedirect, onSubmit }: ICredentialsForm) => {
+  const { handleSubmit, register, setError, formState: { isValid, errors }, reset } = useForm<IFormInputs>({
     mode: 'onChange',
     resolver: yupResolver(validationSchema),
     context: { isSignUpForm: isSignUpForm }
-  })
+  });
 
-  const handleRegistration = (data: any) => {
-    console.log(data)
-    reset();
+  const onFormSubmit = (data: IFormInputs) => {
+    onSubmit(data)
+      .then((requestStatus: true|IApiError) => {
+        if (requestStatus !== true) {
+          reset();
+          setError('password', { type: requestStatus.statusCode.toString(), message: requestStatus.message });
+        }
+      });
   }
 
   return (
@@ -68,9 +75,8 @@ const CredentialsForm = ({ titlePage, subtitlePage, textBtn, isSignUpForm = fals
         </div>
 
         <form
-          onSubmit={handleSubmit(handleRegistration)}
-          className="mt-8 block max-w p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800
-            dark:border-gray-700 dark:hover:bg-gray-700"
+          onSubmit={handleSubmit(onFormSubmit)}
+          className="mt-8 block max-w p-6 bg-white border border-gray-200 rounded-lg shadow"
         >
           <div className="rounded-md">
             <InputField
