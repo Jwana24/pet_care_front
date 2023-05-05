@@ -22,25 +22,25 @@ interface IMenuElementItem {
 const SidebarAccount = () => {
   const menuElements: Array<IMenuElement> = [
     {category : 'Animal', items : [
-      { iconMenu: <BookOpenIcon />,     nameLinkMenu: 'Carnet de santé',   href: '/account/health-book' },
-      { iconMenu: <DocumentPlusIcon />, nameLinkMenu: 'Ajouter un animal', href: '/account/add-animal' },
+      { iconMenu: <BookOpenIcon width={20} />,     nameLinkMenu: 'Carnet de santé',   href: '/account/health-book' },
+      { iconMenu: <DocumentPlusIcon width={20} />, nameLinkMenu: 'Ajouter un animal', href: '/account/add-animal' },
     ]},
     {category : 'Paramètres', items : [
       {
-        iconMenu: <IdentificationIcon />,
+        iconMenu: <IdentificationIcon width={20} />,
         nameLinkMenu: 'Informations personnelles',
         href: '/account/personnal-informations'
       },
       {
-        iconMenu: <Cog6ToothIcon />,
+        iconMenu: <Cog6ToothIcon width={20} />,
         nameLinkMenu: 'Paramètres du compte',
         href: '/account/account-parameters'
       },
-      {
-        iconMenu: <ArrowRightOnRectangleIcon />,
-        nameLinkMenu: 'Déconnexion',
-        href: '/account/health-book'
-      },
+      // {
+      //   iconMenu: <ArrowRightOnRectangleIcon />,
+      //   nameLinkMenu: 'Déconnexion',
+      //   href: '/logout'
+      // },
     ]}
   ]
 
@@ -67,7 +67,7 @@ const SidebarAccount = () => {
                         className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600
                           hover:text-gray-800 border-l-4 border-transparent hover:border-main-color pr-6"
                       >
-                        <span className="w-5 inline-flex justify-center items-center ml-4">{item.iconMenu}</span>
+                        <span className="inline-flex justify-center items-center ml-4">{item.iconMenu}</span>
                         <span className="ml-2 text-sm tracking-wide truncate">{item.nameLinkMenu}</span>
                       </Link>
                     </li>
@@ -76,6 +76,12 @@ const SidebarAccount = () => {
               </div>
             ))}
           </ul>
+        </div>
+        <div className="flex items-center justify-center h-14 border-t hover:text-red-600">
+          <Link href='/logout' className="flex items-center">
+            <ArrowRightOnRectangleIcon width={20} className="inline-flex justify-center items-center mr-2" />
+            Déconnexion
+          </Link>
         </div>
       </div>
     </div>

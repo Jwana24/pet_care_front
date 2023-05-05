@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Chat from '../../components/assets/chat.jpg';
 import InputField from "@/app/components/ReusableComponents/Fields/InputField";
 import { useForm } from "react-hook-form";
@@ -38,7 +37,7 @@ const validationSchema = yup.object({
 });
 
 const AddAnimal = () => {
-  const { handleSubmit, register, formState: { isValid, errors } } = useForm<IFormHealthBook>({
+  const { handleSubmit, register, formState: { errors } } = useForm<IFormHealthBook>({
     mode: 'onChange',
     resolver: yupResolver(validationSchema)
   })

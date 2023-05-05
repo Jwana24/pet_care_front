@@ -1,12 +1,14 @@
 import React from "react";
 import SidebarAccount from "@/app/components/SidebarAccount/SidebarAccount";
-import AuthProvider from "@/app/components/Private/AuthProvider";
+import UserProvider from "@/app/components/Private/UserProvider";
 
 const SidebarAccountLayout = ({ children }: any) => {
   return (
     <main className="flex flex-1">
-      <SidebarAccount />
-      {children}
+      <UserProvider>
+        <SidebarAccount />
+        {children}
+      </UserProvider>
     </main>
   )
 }
