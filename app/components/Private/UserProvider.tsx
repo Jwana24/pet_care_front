@@ -12,6 +12,7 @@ export interface IUser {
 }
 
 export interface IPetOwner {
+  id: string,
   gender: string
   firstName: string
   lastName: string
@@ -26,7 +27,12 @@ interface IUserProvider {
   children: ReactNode
 }
 
-export const UserContext = React.createContext<null | IUser>(null);
+export interface IUserContext {
+  user: IUser | null
+  setUser: React.Dispatch<React.SetStateAction<IUser | null>>
+}
+
+export const UserContext = React.createContext<null | IUserContext>(null);
 
 const UserProvider = ({ children }: IUserProvider) => {
   const [user, setUser] = useState<IUser | null>(null);
@@ -40,7 +46,7 @@ const UserProvider = ({ children }: IUserProvider) => {
   }
 
   return (
-    <UserContext.Provider value={ user }>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
   )

@@ -8,14 +8,14 @@ import {
   DocumentPlusIcon,
   IdentificationIcon
 } from "@heroicons/react/24/outline";
-import { UserContext } from "@/app/components/Private/UserProvider";
+import { IUserContext, UserContext } from "@/app/components/Private/UserProvider";
 
 const Account = () => {
-  const userContext = useContext(UserContext);
+  const { user } = useContext(UserContext) as IUserContext;
 
   return (
     <div className="w-full p-12">
-      <div className="text-5xl mb-9">Bonjour <span className="font-bold">{userContext?.petOwner?.firstName}</span> !</div>
+      <div className="text-5xl mb-9">Bonjour <span className="font-bold">{user?.petOwner?.firstName}</span> !</div>
       <div className="mb-5 flex items-center">
         &#10132;&nbsp;pour gérer les carnets de santé de vos animaux, vous pouvez aller sur la page&nbsp;
         <div className="flex items-center text-lg text-dark-main-color">

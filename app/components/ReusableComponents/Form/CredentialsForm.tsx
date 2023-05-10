@@ -120,6 +120,7 @@ const CredentialsForm = ({ titlePage, subtitlePage, textBtn, isSignUpForm = fals
 
           <SubmitButton
             isValidForm={isValid}
+            classNames="w-full"
             iconBtn={(
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <LockClosedIcon
