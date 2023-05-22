@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { IPetOwner, IUserContext, UserContext } from "@/app/components/Private/UserProvider";
-import { AuthContext } from "@/app/components/Private/AuthProvider";
+import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -24,12 +24,14 @@ const validationSchema = yup.object({
 
 const PersonnalInfos = () => {
   const { user, setUser } = useContext(UserContext) as IUserContext;
-  const authContext = useContext(AuthContext);
+  const { authentication } = useContext(AuthContext) as IContext;
 
   const { handleSubmit, register, reset, formState: { isValid, errors } } = useForm<IPetOwner>({
     mode: 'onChange',
     resolver: yupResolver(validationSchema)
   });
+
+  console.log(authentication)
 
   const submitUser = (data: IPetOwner) => {
     axios.patch<IPetOwner>(
@@ -39,7 +41,7 @@ const PersonnalInfos = () => {
         id: undefined
       },
       {
-        headers: { 'Authorization': `Bearer ${authContext?.authentication}` }
+        headers: { 'Authorization': `Bearer ${authentication?.accessToken}` }
       }
     ).then((response) => user && setUser({...user, petOwner: response.data}))
   }

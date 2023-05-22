@@ -2,15 +2,15 @@
 
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
-import { AuthContext } from "@/app/components/Private/AuthProvider";
+import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 
 const Logout = () => {
-  const authContext = useContext(AuthContext);
+  const { authentication, setAuthentication } = useContext(AuthContext) as IContext;
   const router = useRouter();
 
-  if (authContext?.authentication !== null) {
+  if (authentication?.accessToken !== null) {
     localStorage.removeItem('accessToken');
-    authContext?.setAuthentication(null);
+    setAuthentication(null);
     router.push('/');
   }
 }

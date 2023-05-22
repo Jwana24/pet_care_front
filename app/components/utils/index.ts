@@ -1,0 +1,1 @@
+export const isDefined = (value: any): boolean => ![ undefined, null, NaN ].includes(value);

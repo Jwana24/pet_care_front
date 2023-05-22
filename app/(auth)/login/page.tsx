@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import CredentialsForm, { IFormInputs } from "@/app/components/ReusableComponents/Form/CredentialsForm";
 import { IApiError } from "@/app/components/types";
 import { useContext } from "react";
-import { AuthContext } from "@/app/components/Private/AuthProvider";
+import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 
 const Login = () => {
   const router = useRouter();
-  const authContext = useContext(AuthContext);
+  const { setAuthentication } = useContext(AuthContext) as IContext;
 
   const handleLogin = async (data: IFormInputs): Promise<true|IApiError> => {
     return await axios(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
@@ -18,9 +18,8 @@ const Login = () => {
       data: JSON.stringify(data)
     })
       .then(async (response) => {
-        const authToken = await response.data.accessToken;
-        localStorage.setItem('accessToken', authToken);
-        authContext?.setAuthentication(authToken);
+        localStorage.setItem('accessToken', JSON.stringify(response.data));
+        setAuthentication(response.data);
         await router.push('/');
         return true;
       })

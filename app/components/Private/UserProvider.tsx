@@ -1,8 +1,9 @@
 "use client";
 
-import React, { ReactNode, useContext, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { AuthContext } from "@/app/components/Private/AuthProvider";
+import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
+import { isDefined } from "@/app/components/utils";
 
 export interface IUser {
   email: string
@@ -36,11 +37,13 @@ export const UserContext = React.createContext<null | IUserContext>(null);
 
 const UserProvider = ({ children }: IUserProvider) => {
   const [user, setUser] = useState<IUser | null>(null);
-  const authContext = useContext(AuthContext);
+  const { authentication } = useContext(AuthContext) as IContext;
 
-  if (authContext?.authentication !== null && user === null) {
+  console.log(authentication?.accessToken)
+
+  if (isDefined(authentication?.accessToken) && !isDefined(user)) {
     axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
-      headers: { 'Authorization': `Bearer ${authContext?.authentication}` }
+      headers: { 'Authorization': `Bearer ${authentication?.accessToken}` }
     })
       .then((response) => setUser(response.data))
   }

@@ -2,11 +2,11 @@
 
 import React, { useContext } from "react";
 import Link from "next/link";
-import { AuthContext } from "@/app/components/Private/AuthProvider";
+import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { HomeIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
 
 const Navbar = () => {
-  const authContext = useContext(AuthContext);
+  const { authentication } = useContext(AuthContext) as IContext;
 
   return (
     <div className="flex items-center h-20 bg-main-color">
@@ -19,7 +19,7 @@ const Navbar = () => {
             <div className="mr-2"><HomeIcon width={20} /></div>
             Accueil
           </Link>
-          {authContext?.authentication === null ? (
+          {authentication?.accessToken === null ? (
             <>
               <Link className="ml-5" href='/login'>Connexion</Link>
               <Link

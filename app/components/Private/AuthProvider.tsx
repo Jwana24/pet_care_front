@@ -1,11 +1,16 @@
 "use client";
 
-import React, { Dispatch, ReactNode, SetStateAction, useState } from "react";
+import React, { Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 export interface IContext {
-  authentication: null | string
-  setAuthentication: Dispatch<SetStateAction<string | null>>
+  authentication: null | IAuthElement
+  setAuthentication: Dispatch<SetStateAction<IAuthElement | null>>
+}
+
+interface IAuthElement {
+  accessToken: string | null
+  expireAt: Date | null
 }
 
 interface IProvider {
@@ -15,11 +20,22 @@ interface IProvider {
 export const AuthContext = React.createContext<null | IContext>(null);
 
 const AuthProvider = ({ children }: IProvider) => {
-  const [authentication, setAuthentication] = useState(localStorage.getItem('accessToken'));
+  const [authentication, setAuthentication] = useState<IAuthElement | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
-  if (authentication !== null || ['/', '/login'].includes(pathname)) { // + add check date validité
+  const newDateTimestamp = (Date.now() / 1000).toString();
+
+  // useEffect is necessary here because the localStorage is undefined at start
+  useEffect(() => {
+    const storage = localStorage.getItem("accessToken");
+    setAuthentication({
+      accessToken: storage && JSON.parse(storage).accessToken,
+      expireAt: storage && JSON.parse(storage).expireAt
+    });
+  }, []);
+
+  if (authentication?.accessToken !== null || ['/', '/login'].includes(pathname)) { // + add check date validité
     return (
       <AuthContext.Provider value={{ authentication, setAuthentication }}>
         {children}
