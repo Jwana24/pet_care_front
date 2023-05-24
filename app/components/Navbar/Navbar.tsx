@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { HomeIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
+import { isDefined, isTokenValid } from "@/app/components/utils";
 
 const Navbar = () => {
   const { authentication } = useContext(AuthContext) as IContext;
@@ -19,7 +20,7 @@ const Navbar = () => {
             <div className="mr-2"><HomeIcon width={20} /></div>
             Accueil
           </Link>
-          {authentication?.accessToken === null ? (
+          {!isTokenValid(authentication) ? (
             <>
               <Link className="ml-5" href='/login'>Connexion</Link>
               <Link

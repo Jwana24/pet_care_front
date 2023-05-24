@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext, useEffect } from "react";
 import { IPetOwner, IUserContext, UserContext } from "@/app/components/Private/UserProvider";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { useForm } from "react-hook-form";
@@ -10,6 +9,7 @@ import * as yup from "yup";
 import InputField from "@/app/components/ReusableComponents/Fields/InputField";
 import SelectField from "@/app/components/ReusableComponents/Fields/SelectField";
 import SubmitButton from "@/app/components/ReusableComponents/Fields/SubmitButton";
+import { requestPatch } from "@/app/components/utils";
 
 const validationSchema = yup.object({
   gender: yup.string().required("Ce champs est requis"),
@@ -31,19 +31,12 @@ const PersonnalInfos = () => {
     resolver: yupResolver(validationSchema)
   });
 
-  console.log(authentication)
-
   const submitUser = (data: IPetOwner) => {
-    axios.patch<IPetOwner>(
-      `${process.env.NEXT_PUBLIC_API_URL}/petOwners/${user?.petOwner?.id}`,
-      {
-        ...data,
-        id: undefined
-      },
-      {
-        headers: { 'Authorization': `Bearer ${authentication?.accessToken}` }
-      }
-    ).then((response) => user && setUser({...user, petOwner: response.data}))
+    requestPatch<IPetOwner>(`petOwners/${user?.petOwner?.id}`, {
+      ...data,
+      id: undefined
+    }, authentication?.accessToken)
+      .then((response) => user && setUser({...user, petOwner: response.data}))
   }
 
   useEffect(() => {

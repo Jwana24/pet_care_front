@@ -2,15 +2,16 @@
 
 import React, { Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { isTokenValid } from "@/app/components/utils";
 
 export interface IContext {
   authentication: null | IAuthElement
   setAuthentication: Dispatch<SetStateAction<IAuthElement | null>>
 }
 
-interface IAuthElement {
+export interface IAuthElement {
   accessToken: string | null
-  expireAt: Date | null
+  expireAt: string | null
 }
 
 interface IProvider {
@@ -24,27 +25,27 @@ const AuthProvider = ({ children }: IProvider) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const newDateTimestamp = (Date.now() / 1000).toString();
-
   // useEffect is necessary here because the localStorage is undefined at start
   useEffect(() => {
     const storage = localStorage.getItem("accessToken");
+
     setAuthentication({
       accessToken: storage && JSON.parse(storage).accessToken,
       expireAt: storage && JSON.parse(storage).expireAt
     });
   }, []);
 
-  if (authentication?.accessToken !== null || ['/', '/login'].includes(pathname)) { // + add check date validité
-    return (
-      <AuthContext.Provider value={{ authentication, setAuthentication }}>
-        {children}
-      </AuthContext.Provider>
-    )
-  } else {
-    router.push("/login");
-    return null;
-  }
+  useEffect(() => {
+    if ((authentication && !isTokenValid(authentication)) && !['/', '/login'].includes(pathname)) {
+      router.push("/login");
+    }
+  }, [authentication, pathname, router]);
+
+  return (
+    <AuthContext.Provider value={{ authentication, setAuthentication }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export default AuthProvider;
