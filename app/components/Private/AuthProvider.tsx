@@ -36,7 +36,7 @@ const AuthProvider = ({ children }: IProvider) => {
   }, []);
 
   useEffect(() => {
-    if ((authentication && !isTokenValid(authentication)) && !['/', '/login'].includes(pathname)) {
+    if ((authentication && !isTokenValid(authentication)) && !['/', '/login', '/signup'].includes(pathname)) {
       router.push("/login");
     }
   }, [authentication, pathname, router]);

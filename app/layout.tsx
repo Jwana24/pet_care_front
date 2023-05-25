@@ -1,7 +1,6 @@
-import Navbar from "@/app/components/Navbar/Navbar";
-import Footer from "@/app/components/Footer/Footer";
+import dynamic from "next/dynamic";
 import './globals.scss';
-import AuthProvider from "@/app/components/Private/AuthProvider";
+import Loading from "@/app/loading";
 
 export const metadata = {
   title: 'Pet care : Carnet de santé de mon animal',
@@ -14,14 +13,17 @@ interface IGeneralLayout {
 }
 
 export default function RootLayout({ children }: IGeneralLayout) {
+  const App = dynamic(
+    () => import("@/app/App"),
+    { ssr: false, loading: () => <Loading /> }
+  );
+
   return (
     <html lang="fr">
       <body className="flex flex-col min-h-screen">
-      <AuthProvider>
-        <Navbar />
-        {children}
-        <Footer />
-      </AuthProvider>
+        <App>
+          {children}
+        </App>
       </body>
     </html>
   )

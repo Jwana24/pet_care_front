@@ -5,14 +5,17 @@ import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { isDefined, requestGet } from "@/app/components/utils";
 
 export interface IUser {
+  id: string
   email: string
+  password?: string
+  confirmPassword?: string
   createdAt: Date
   updatedAt: Date
   petOwner: IPetOwner
 }
 
 export interface IPetOwner {
-  id: string,
+  id: string
   gender: string
   firstName: string
   lastName: string
