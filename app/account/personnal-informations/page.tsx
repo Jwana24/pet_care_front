@@ -19,7 +19,7 @@ const validationSchema = yup.object({
   zipCode: yup.string().required("Ce champs est requis"),
   city: yup.string().required("Ce champs est requis"),
   country: yup.string().required("Ce champs est requis"),
-  phone: yup.string().required("Ce champs est requis")
+  phone: yup.string().matches(new RegExp('^\\d{9}$'), "Le numéro de téléphone doit contenir 9 chiffres, sans le premier '0'").required("Ce champs est requis")
 });
 
 const PersonnalInfos = () => {
@@ -34,9 +34,12 @@ const PersonnalInfos = () => {
   const submitUser = (data: IPetOwner) => {
     requestPatch<IPetOwner>(`petOwners/${user?.petOwner?.id}`, {
       ...data,
-      id: undefined
+      id: undefined,
+      phone: `+33${data.phone}`
     }, authentication?.accessToken)
-      .then((response) => user && setUser({...user, petOwner: response.data}))
+      .then((response) => {
+        user && setUser({...user, petOwner: { ...response.data, phone: response.data.phone.slice(3) }})
+      })
   }
 
   useEffect(() => {
@@ -63,7 +66,7 @@ const PersonnalInfos = () => {
       classnames: "col-span-12 md:col-span-5 lg:col-span-4 mb-5 lg:mr-2"
     },
     {
-      component: <InputField type="text" label="téléphone" name="phone" register={register} errors={errors.phone?.message} />,
+      component: <InputField type="text" label="téléphone" preInput name="phone" register={register} errors={errors.phone?.message} />,
       classnames: "col-span-6 md:col-span-7 lg:col-span-3 md:mr-2 lg:mr-0"
     },
     {
@@ -79,7 +82,7 @@ const PersonnalInfos = () => {
       classnames: "col-span-12 md:col-span-5 lg:col-span-3 md:mr-2"
     },
     {
-      component: <InputField type="text" label="pays" name="country" register={register} errors={errors.country?.message} />,
+      component: <InputField type="text" label="pays (3 premières lettres)" name="country" register={register} errors={errors.country?.message} />,
       classnames: "col-span-12 md:col-span-4 lg:col-span-3"
     }
   ];

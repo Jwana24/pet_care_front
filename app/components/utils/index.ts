@@ -11,8 +11,8 @@ export const isTokenValid = (expirationDateToken: IAuthElement | null) => {
   return (expirationDateToken?.expireAt && expirationDateToken.expireAt > currentDateToISO) && isDefined(expirationDateToken.accessToken)
 }
 
-export const requestGet = async (route: string, token?: string | null |undefined): Promise<AxiosResponse> => {
-  return axios.get(`${process.env.NEXT_PUBLIC_API_URL}/${route}`, {
+export const requestGet = async <T>(route: string, token?: string | null |undefined): Promise<AxiosResponse> => {
+  return axios.get<T>(`${process.env.NEXT_PUBLIC_API_URL}/${route}`, {
     headers: { ...(token && { 'Authorization': `Bearer ${token}` }) }
   });
 }

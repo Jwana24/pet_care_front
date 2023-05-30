@@ -28,7 +28,7 @@ const SelectField = ({
         <select
           autoComplete={autoComplete}
           {...register(name)}
-          className={`block w-full ${!inline && "mt-3.5"} bg-white rounded-md border-0 py-2 px-2 text-gray-900 ring-1 ring-inset
+          className={`block w-full ${!inline && "mt-3.5"} bg-white rounded-md border-0 py-2.5 px-2 text-gray-900 ring-1 ring-inset
             ring-gray-300 sm:text-sm sm:leading-6`}
           {...rest}
         >

@@ -10,7 +10,7 @@ const Navbar = () => {
   const { authentication } = useContext(AuthContext) as IContext;
 
   return (
-    <div className="flex items-center h-20 bg-main-color">
+    <div className="flex items-center max-h-20 bg-main-color">
       <div className="container flex justify-between mx-auto">
         <div className="Logo">
           <Link href='/'>Pet care</Link>

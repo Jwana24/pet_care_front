@@ -43,8 +43,13 @@ const UserProvider = ({ children }: IUserProvider) => {
 
   useEffect(() => {
     if (isDefined(authentication?.accessToken) && !isDefined(user)) {
-      requestGet('auth/me', authentication?.accessToken)
-        .then((response) => setUser(response.data))
+      requestGet<IUser>('auth/me', authentication?.accessToken)
+        .then((response) => setUser({
+          ...response.data,
+          petOwner: {
+            ...response.data.petOwner,
+            phone: response.data.petOwner.phone.slice(3)
+        } }))
     }
   }, [ authentication?.accessToken, user ]);
 
