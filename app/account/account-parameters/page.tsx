@@ -9,11 +9,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { requestPatch } from "@/app/components/utils";
 import * as yup from "yup";
 import InputField from "@/app/components/ReusableComponents/Fields/InputField";
+import PasswordField from "@/app/components/ReusableComponents/Fields/PasswordField";
 
 const validationSchema = yup.object({
-  email: yup.string().required("Ce champs est requis"),
-  password: yup.string().required("Ce champs est requis"),
-  confirmPassword: yup.string().required("Ce champs est requis")
+  email: yup.string().required(),
+  password: yup.string(),
+  confirmPassword: yup.string().oneOf(
+    [yup.ref("password"), undefined],
+    "La confirmation du mot de passe ne correspond pas"
+    )
 });
 
 const AccountParameters = () => {
@@ -26,9 +30,14 @@ const AccountParameters = () => {
   });
 
   const submitUserParameters = (data: IUser) => {
+    console.log("data???", data);
+    
     requestPatch<IUser>(`users/${user?.id}`, {
       ...data,
-      id: undefined
+      id: undefined,
+      password: data.password === "" ? undefined : data.password,
+      confirmPassword: undefined
+
     }, authentication?.accessToken)
       .then((response) => user && setUser(response.data))
   }
@@ -45,11 +54,11 @@ const AccountParameters = () => {
       classnames: "col-span-12 md:col-span-5 lg:col-span-6 mb-5 md:mr-2"
     },
     {
-      component: <InputField type="text" label="Mot de passe" name="password" register={register} errors={errors.password?.message} />,
+      component: <PasswordField label="Mot de passe" name="password" autoComplete="current-password" register={register} errors={errors.password?.message} />,
       classnames: "col-span-12 md:col-span-5 lg:col-span-3 mb-5 lg:mr-2"
     },
     {
-      component: <InputField type="text" label="Confirmer le mot de passe" name="confirmPassword" register={register} errors={errors.confirmPassword?.message} />,
+      component: <PasswordField label="Confirmer le mot de passe" name="confirmPassword" register={register} errors={errors.confirmPassword?.message} />,
       classnames: "col-span-12 md:col-span-5 lg:col-span-3 mb-5 lg:mr-2"
     },
   ]
