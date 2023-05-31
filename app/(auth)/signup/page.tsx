@@ -12,7 +12,6 @@ const SignUp = () => {
   const { setAuthentication } = useContext(AuthContext) as IContext;
 
   const handleRegister = async (data: IFormInputs): Promise<true | IApiError> => {
-    console.log(data)
     return await requestPost<IFormInputs>('auth/register', {
       ...data,
       confirmPassword: undefined

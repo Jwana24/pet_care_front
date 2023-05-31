@@ -9,19 +9,29 @@ import * as yup from "yup";
 
 type IFormHealthBook = {
   species: string,
-  animalName: string,
-  race: string,
+  name: string,
+  breed: string,
   coat: string
   gender: string,
-  country: string,
-  birthDate: string
+  birthCountry: string,
+  birthDate: Date,
+  deceased?: boolean,
+  deceaseDate?: Date,
 };
 
 const validationSchema = yup.object({
   species: yup.string().required("Ce champs est requis"),
-  animalName: yup.string().required("Ce champs est requis"),
-  race: yup.string().required("Ce champs est requis"),
-  coat: yup.string().required("Ce champs est requis")
+  name: yup.string().required("Ce champs est requis"),
+  breed: yup.string().required("Ce champs est requis"),
+  coat: yup.string().required("Ce champs est requis"),
+  gender: yup.string().required("Ce champs est requis"),
+  birthCountry: yup.string().required("Ce champs est requis"),
+  birthDate: yup.date().required("Ce champs est requis"),
+  deceased: yup.boolean(),
+  deceaseDate: yup.date()
+    .when('deceased', ([deceased], fieldSchema) => {
+      return deceased ? fieldSchema.required("La date de décès est requise") : fieldSchema.notRequired()
+    }),
 });
 
 const HealthBook = () => {
