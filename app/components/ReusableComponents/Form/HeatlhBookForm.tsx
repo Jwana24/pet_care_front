@@ -41,6 +41,7 @@ const HeatlhBookForm = ({ titlePage, imgSrc, handleSubmit, fields }: IHealthBook
               ))}
             </div>
           </div>
+          <button type="submit">Envoyer</button>
         </div>
       </form>
     </div>

@@ -43,7 +43,7 @@ const validationSchema = yup.object({
 });
 
 const AddAnimal = () => {
-  const { handleSubmit, register, formState: { errors } } = useForm<IFormHealthBook>({
+  const { handleSubmit, register, watch, setValue, formState: { errors } } = useForm<IFormHealthBook>({
     mode: 'onChange',
     resolver: yupResolver(validationSchema)
   })
@@ -54,8 +54,8 @@ const AddAnimal = () => {
 
   const generalFields = [
     {
-      component: <InputField type="text" label="photo" name="picture" register={register} errors={errors.picture?.message} />,
-      classnames: "col-span-6 mb-5 mr-2"
+      component: <DragAndDrop name="picture" fileType={"image/png, image/jpeg"} register={register} watch={watch} setValue={setValue} errors={errors.picture?.message} />,
+      classnames: "col-span-12 mb-5"
     },
     {
       component: <InputField type="text" label="espèce" name="species" register={register} errors={errors.species?.message} />,
@@ -115,7 +115,6 @@ const AddAnimal = () => {
 
   return (
     <>
-      <DragAndDrop name="picture" fileType={"image/png, image/jpeg"} register={register} errors={errors.picture?.message} />
       <HeatlhBookForm
         titlePage="Ajouter un animal"
         imgSrc={Chat}
