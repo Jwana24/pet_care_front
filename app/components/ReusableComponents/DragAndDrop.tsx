@@ -80,7 +80,7 @@ const DragAndDrop = ({ name, fileType, register, watch, setValue, errors, ...res
               téléverser un fichier
             </button>
           </div>
-          <Image src={img} alt="Image" width={238} height={180} />
+          {img && <Image src={img} alt="Image" width={238} height={180} />}
         </div>
       </label>
       {dragActive && (

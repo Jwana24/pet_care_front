@@ -9,10 +9,13 @@ import HeatlhBookForm from "@/app/components/ReusableComponents/Form/HeatlhBookF
 import SelectField from "@/app/components/ReusableComponents/Fields/SelectField";
 import TextareaField from "@/app/components/ReusableComponents/Fields/TextareaField";
 import DragAndDrop from "@/app/components/ReusableComponents/DragAndDrop";
+import { requestPost } from "@/app/components/utils";
+import { useContext } from "react";
+import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 
-type IFormHealthBook = {
+export type IFormNewAnimal = {
   picture?:string,
-  species: string,
+  specie: string,
   name: string,
   breed: string,
   coat: string
@@ -22,13 +25,13 @@ type IFormHealthBook = {
   identificationType: string,
   identificationDate: Date,
   identificationPlace: string,
-  identificationNumber: number,
+  identificationNumber: string,
   description?:string
 };
 
 const validationSchema = yup.object({
   picture: yup.string(),
-  species: yup.string().required("Ce champs est requis"),
+  specie: yup.string().required("Ce champs est requis"),
   name: yup.string().required("Ce champs est requis"),
   breed: yup.string().required("Ce champs est requis"),
   coat: yup.string().required("Ce champs est requis"),
@@ -38,18 +41,33 @@ const validationSchema = yup.object({
   identificationType: yup.string().required("Ce champs est requis"),
   identificationDate: yup.date().required("Ce champs est requis"),
   identificationPlace: yup.string().required("Ce champs est requis"),
-  identificationNumber: yup.number().required("Ce champs est requis"),
+  identificationNumber: yup.string().required("Ce champs est requis"),
   description: yup.string()
 });
 
 const AddAnimal = () => {
-  const { handleSubmit, register, watch, setValue, formState: { errors } } = useForm<IFormHealthBook>({
+  const { handleSubmit, register, watch, setValue, setError, reset, formState: { isValid, errors } } = useForm<IFormNewAnimal>({
     mode: 'onChange',
     resolver: yupResolver(validationSchema)
-  })
+  });
+  const { authentication } = useContext(AuthContext) as IContext;
 
-  const submitHealthBookInformations = (data: any) => {
-    console.log(data);
+  const submitHealthBookInformations = async (data: IFormNewAnimal): Promise<void> => {
+    await requestPost<IFormNewAnimal>('pets', {
+      ...data,
+      picture: null,
+      deceased: false,
+      deceaseDate: null,
+
+    }, authentication?.accessToken)
+      .then(async (response) => {
+        if (!response) {
+          // setError('password', { type: requestStatus.statusCode.toString(), message: requestStatus.message });
+          console.log('error');
+        }
+        reset();
+      })
+      .catch((e) => e.response.data)
   }
 
   const generalFields = [
@@ -58,15 +76,15 @@ const AddAnimal = () => {
       classnames: "col-span-12 mb-5"
     },
     {
-      component: <InputField type="text" label="espèce" name="species" register={register} errors={errors.species?.message} />,
+      component: <InputField type="text" label="espèce" name="specie" register={register} errors={errors.specie?.message} />,
       classnames: "col-span-6 mb-5 mr-2"
     },
     {
-      component: <InputField type="text" label="nom" name="animalName" register={register} errors={errors.name?.message} />,
+      component: <InputField type="text" label="nom" name="name" register={register} errors={errors.name?.message} />,
       classnames: "col-span-6 mb-5"
     },
     {
-      component: <InputField type="text" label="race" name="race" register={register} errors={errors.breed?.message} />,
+      component: <InputField type="text" label="race" name="breed" register={register} errors={errors.breed?.message} />,
       classnames: "col-span-6 mb-5 mr-2"
     },
     {
@@ -84,7 +102,7 @@ const AddAnimal = () => {
       classnames: "mr-2 col-span-4 lg:col-span-2"
     },
     {
-      component: <InputField type="text" label="provenance" name="country" register={register} errors={errors.birthCountry?.message} />,
+      component: <InputField type="text" label="provenance" name="birthCountry" register={register} errors={errors.birthCountry?.message} />,
       classnames: "mr-2 col-span-4 lg:col-span-5"
     },
     {
@@ -92,19 +110,25 @@ const AddAnimal = () => {
       classnames: "col-span-4 lg:col-span-5"
     },
     {
-      component: <InputField type="text" label="type d'identification" name="idType" register={register} errors={errors.identificationType?.message} />,
+      component: <SelectField
+        label="type d'identification"
+        name="identificationType"
+        register={register}
+        options={[{ value: "puce", optionName: "Puce" }, { value: "tatoo", optionName: "Tatouage" }]}
+        errors={errors.identificationType?.message}
+      />,
       classnames: "mr-2 col-span-6"
     },
     {
-      component: <InputField type="date" label="date d'identification" name="idDate" register={register} errors={errors.identificationDate?.message} />,
+      component: <InputField type="date" label="date d'identification" name="identificationDate" register={register} errors={errors.identificationDate?.message} />,
       classnames: "col-span-6"
     },
     {
-      component: <InputField type="text" label="lieu d'identification" name="idPlace" register={register} errors={errors.identificationPlace?.message} />,
+      component: <InputField type="text" label="lieu d'identification" name="identificationPlace" register={register} errors={errors.identificationPlace?.message} />,
       classnames: "col-span-12"
     },
     {
-      component: <InputField type="text" label="numéro d'identification" name="idNumber" register={register} errors={errors.identificationNumber?.message} />,
+      component: <InputField type="text" label="numéro d'identification" name="identificationNumber" register={register} errors={errors.identificationNumber?.message} />,
       classnames: "mr-2 col-span-6"
     },
     {
@@ -118,8 +142,9 @@ const AddAnimal = () => {
       <HeatlhBookForm
         titlePage="Ajouter un animal"
         imgSrc={Chat}
-        handleSubmit={handleSubmit(submitHealthBookInformations)}
+        handleAddAnimal={handleSubmit(submitHealthBookInformations)}
         fields={generalFields}
+        isValid={isValid}
       />
     </>
   )
