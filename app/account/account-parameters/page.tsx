@@ -30,8 +30,6 @@ const AccountParameters = () => {
   });
 
   const submitUserParameters = (data: IUser) => {
-    console.log("data???", data);
-    
     requestPatch<IUser>(`users/${user?.id}`, {
       ...data,
       id: undefined,

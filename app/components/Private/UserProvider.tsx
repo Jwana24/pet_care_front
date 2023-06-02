@@ -48,7 +48,7 @@ const UserProvider = ({ children }: IUserProvider) => {
           ...response.data,
           petOwner: {
             ...response.data.petOwner,
-            phone: response.data.petOwner.phone.slice(3)
+            phone: response?.data?.petOwner?.phone?.slice(3)
         } }))
     }
   }, [ authentication?.accessToken, user ]);
