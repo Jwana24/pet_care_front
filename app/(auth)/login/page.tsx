@@ -6,6 +6,7 @@ import { IApiError } from "@/app/components/types";
 import { useContext } from "react";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { requestPost } from "@/app/components/utils";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const router = useRouter();
@@ -17,6 +18,7 @@ const Login = () => {
         localStorage.setItem('accessToken', JSON.stringify(response.data));
         setAuthentication(response.data);
         await router.push('/');
+        toast.success("Bonjour !", { icon: "👋" });
         return true;
       })
       .catch((e) => e.response.data)

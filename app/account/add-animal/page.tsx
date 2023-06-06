@@ -1,17 +1,18 @@
 'use client';
 
-import Chat from '../../components/assets/chat.jpg';
+import React, { useContext } from "react";
+import { toast } from "react-toastify";
 import InputField from "@/app/components/ReusableComponents/Fields/InputField";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
+import { requestPost } from "@/app/components/utils";
 import HeatlhBookForm from "@/app/components/ReusableComponents/Form/HeatlhBookForm";
 import SelectField from "@/app/components/ReusableComponents/Fields/SelectField";
 import TextareaField from "@/app/components/ReusableComponents/Fields/TextareaField";
 import DragAndDrop from "@/app/components/ReusableComponents/DragAndDrop";
-import { requestPost } from "@/app/components/utils";
-import { useContext } from "react";
-import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
+import Chat from '../../components/assets/chat.jpg';
 
 export type IFormNewAnimal = {
   picture?:string,
@@ -63,11 +64,16 @@ const AddAnimal = () => {
       .then(async (response) => {
         if (!response) {
           // setError('password', { type: requestStatus.statusCode.toString(), message: requestStatus.message });
+          toast.error("Un problème est survenu lors de l'envoi du formulaire");
           console.log('error');
         }
         reset();
+        toast.success("Le carnet de santé de votre animal a été ajouté");
       })
-      .catch((e) => e.response.data)
+      .catch((e) => {
+        e.response.data;
+        toast.error("Un problème est survenu lors de l'envoi du formulaire");
+      })
   }
 
   const generalFields = [

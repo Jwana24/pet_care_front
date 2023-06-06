@@ -10,6 +10,7 @@ import InputField from "@/app/components/ReusableComponents/Fields/InputField";
 import SelectField from "@/app/components/ReusableComponents/Fields/SelectField";
 import SubmitButton from "@/app/components/ReusableComponents/Fields/SubmitButton";
 import { requestPatch } from "@/app/components/utils";
+import { toast } from "react-toastify";
 
 const validationSchema = yup.object({
   gender: yup.string().required("Ce champs est requis"),
@@ -38,7 +39,8 @@ const PersonnalInfos = () => {
       phone: `+33${data.phone}`
     }, authentication?.accessToken)
       .then((response) => {
-        user && setUser({...user, petOwner: { ...response.data, phone: response.data.phone.slice(3) }})
+        user && setUser({...user, petOwner: { ...response.data, phone: response.data.phone.slice(3) }});
+        toast.success("Vos informations personnelles ont été mises à jour");
       })
   }
 

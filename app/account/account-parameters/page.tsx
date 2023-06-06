@@ -10,6 +10,7 @@ import { requestPatch } from "@/app/components/utils";
 import * as yup from "yup";
 import InputField from "@/app/components/ReusableComponents/Fields/InputField";
 import PasswordField from "@/app/components/ReusableComponents/Fields/PasswordField";
+import { toast } from "react-toastify";
 
 const validationSchema = yup.object({
   email: yup.string().required(),
@@ -37,7 +38,10 @@ const AccountParameters = () => {
       confirmPassword: undefined
 
     }, authentication?.accessToken)
-      .then((response) => user && setUser(response.data))
+      .then((response) => {
+        user && setUser(response.data);
+        toast.success("Les paramètres du compte ont été mis à jour");
+      })
   }
 
   useEffect(() => {

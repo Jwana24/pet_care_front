@@ -6,6 +6,7 @@ import { useContext } from "react";
 import CredentialsForm, { IFormInputs } from "@/app/components/ReusableComponents/Form/CredentialsForm";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { requestPost } from "@/app/components/utils";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const router = useRouter();
@@ -20,6 +21,7 @@ const SignUp = () => {
         localStorage.setItem('accessToken', JSON.stringify(response.data));
         setAuthentication(response.data);
         await router.push('/');
+        toast.success("Bienvenue !", { icon: "🙌" });
         return true;
       })
       .catch((e) => e.response.data)

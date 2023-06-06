@@ -1,6 +1,7 @@
+import React from "react";
 import dynamic from "next/dynamic";
-import './globals.scss';
 import Loading from "@/app/loading";
+import './globals.scss';
 
 export const metadata = {
   title: 'Pet care : Carnet de santé de mon animal',
@@ -21,9 +22,7 @@ export default function RootLayout({ children }: IGeneralLayout) {
   return (
     <html lang="fr">
       <body className="flex flex-col min-h-screen">
-        <App>
-          {children}
-        </App>
+        <App>{children}</App>
       </body>
     </html>
   )
