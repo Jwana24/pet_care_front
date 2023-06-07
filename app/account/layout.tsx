@@ -1,5 +1,5 @@
 import React from "react";
-import SidebarAccount from "@/app/components/ReusableComponents/SidebarAccount";
+import SidebarAccount from "@/app/components/SidebarAccount";
 import UserProvider from "@/app/components/Private/UserProvider";
 
 const SidebarAccountLayout = ({ children }: any) => {

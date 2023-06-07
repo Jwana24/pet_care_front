@@ -11,11 +11,12 @@ const Navbar = () => {
 
   return (
     <div className="flex items-center max-h-20 bg-main-color">
-      <div className="container flex justify-between mx-auto">
-        <div className="Logo">
+      {/*<div className="container flex justify-between mx-auto">*/}
+      <div className="flex w-full justify-between">
+        <div className="Logo pl-8">
           <Link href='/'>Pet care</Link>
         </div>
-        <nav className="flex items-center">
+        <nav className="flex items-center pr-8">
           <Link className="mr-8 flex items-center" href='/'>
             <div className="mr-2"><HomeIcon width={20} /></div>
             Accueil

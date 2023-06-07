@@ -22,7 +22,7 @@ interface IMenuElementItem {
 const SidebarAccount = () => {
   const menuElements: Array<IMenuElement> = [
     {category : 'Animal', items : [
-      { iconMenu: <BookOpenIcon width={20} />,     nameLinkMenu: 'Carnet de santé',   href: '/account/health-book' },
+      { iconMenu: <BookOpenIcon width={20} />,     nameLinkMenu: 'Carnets de santé',   href: '/account/health-books-list' },
       { iconMenu: <DocumentPlusIcon width={20} />, nameLinkMenu: 'Ajouter un animal', href: '/account/add-animal' },
     ]},
     {category : 'Paramètres', items : [
