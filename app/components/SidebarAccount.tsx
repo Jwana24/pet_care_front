@@ -35,12 +35,7 @@ const SidebarAccount = () => {
         iconMenu: <Cog6ToothIcon width={20} />,
         nameLinkMenu: 'Paramètres du compte',
         href: '/account/account-parameters'
-      },
-      // {
-      //   iconMenu: <ArrowRightOnRectangleIcon />,
-      //   nameLinkMenu: 'Déconnexion',
-      //   href: '/logout'
-      // },
+      }
     ]}
   ]
 

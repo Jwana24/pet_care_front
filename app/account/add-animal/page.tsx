@@ -57,8 +57,6 @@ const AddAnimal = () => {
     await requestPost<IFormNewAnimal>('pets', {
       ...data,
       picture: null,
-      deceased: false,
-      deceaseDate: null,
 
     }, authentication?.accessToken)
       .then(async (response) => {
