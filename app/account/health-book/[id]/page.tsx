@@ -6,6 +6,7 @@ import { requestGet } from "@/app/components/utils";
 import { IPet } from "@/app/components/types";
 import Image from 'next/image';
 import Chat from '../../../components/assets/chat.jpg';
+import dayjs from "dayjs";
 
 const HealthBook = ({ params }: { params: { id: number } }) => {
   const { authentication } = useContext(AuthContext) as IContext;
@@ -19,7 +20,7 @@ const HealthBook = ({ params }: { params: { id: number } }) => {
           const birthDate = new Date(response?.data?.birthDate);
           const deceaseDate = new Date(response?.data?.deceaseDate);
           const identificationDate = new Date(response?.data?.identificationDate);
-          setPetInfo({ ...response?.data, birthDate: birthDate, deceaseDate: deceaseDate, identificationDate: identificationDate })
+          setPetInfo({ ...response?.data, birthDate: birthDate, deceaseDate: deceaseDate, identificationDate: identificationDate });
         })
     }
   }, [ authentication?.accessToken, idPet ]);
@@ -34,12 +35,12 @@ const HealthBook = ({ params }: { params: { id: number } }) => {
   const complementaryField = [
     { label: "sexe",              value: petInfo?.gender,       classnames: "mr-2 col-span-3 lg:col-span-1" },
     { label: "provenance",        value: petInfo?.birthCountry, classnames: "lg:mr-2 col-span-3 lg:col-span-2" },
-    { label: "date de naissance", value: petInfo?.birthDate?.toDateString(),    classnames: "col-span-6 lg:col-span-3" }
+    { label: "date de naissance", value: dayjs(petInfo?.birthDate).format("DD-MM-YYYY"), classnames: "col-span-6 lg:col-span-3" }
   ]
 
   const identificationField = [
     { label: "type d'identification",   value: petInfo?.identificationType,   classnames: "mr-2 col-span-2 lg:col-span-1" },
-    { label: "date d'identification",   value: petInfo?.identificationDate?.toDateString(),   classnames: "lg:mr-2 col-span-2 lg:col-span-1" },
+    { label: "date d'identification",   value: dayjs(petInfo?.identificationDate).format("DD-MM-YYYY"), classnames: "lg:mr-2 col-span-2 lg:col-span-1" },
     { label: "lieu d'identification",   value: petInfo?.identificationPlace,  classnames: "col-span-4 lg:col-span-2" },
     { label: "numéro d'identification", value: petInfo?.identificationNumber, classnames: "col-span-2 lg:col-span-1" }
   ]
