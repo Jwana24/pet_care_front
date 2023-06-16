@@ -34,7 +34,7 @@ const AnimalCard = ({ pet }: IAnimalCard) => {
     return str.slice(0, num) + '...'
   }
 
-  const animalGender = pet.gender === "female" ? "♀️" : "♂️"
+  const animalGender = pet.gender === "female" ? "♀️" : "♂️";
 
   return (
     <div className={`flex w-full max-w bg-white border border-gray-200 rounded-lg shadow ${isMobile ? "flex-col h-min" : "flex-row h-44"}`}>
@@ -51,11 +51,13 @@ const AnimalCard = ({ pet }: IAnimalCard) => {
         <h2 className="text-xl font-bold">{`${pet?.name} ${animalGender}`}</h2>
         <p>{`${pet?.specie} `}<span className="italic">&quot;{pet?.breed}&quot;</span></p>
         <p>{pet?.coat}</p>
-        {!isSmallDevice && <p>{truncateString(pet?.description, 250)}</p>}
+        {!isSmallDevice && pet.description && <p>{truncateString(pet.description, 250)}</p>}
       </div>
       <div className={`flex justify-end items-start h-full ${isMobile ? "p-2" : "mt-2"}`}>
         <div className="w-10 h-10 aspect-square rounded-full bg-slate-100 hover:bg-slate-300 text-slate-600 cursor-pointer p-2 mr-2 transition-colors duration-150">
-          <PencilSquareIcon />
+          <Link href={`/account/edit-animal/${pet.id}`}>
+            <PencilSquareIcon />
+          </Link>
         </div>
         <div className={`w-10 h-10 aspect-square rounded-full bg-slate-100 hover:bg-slate-300 text-slate-600 cursor-pointer transition-colors duration-150
           p-2 ${!isMobile && "mr-2"}`}>

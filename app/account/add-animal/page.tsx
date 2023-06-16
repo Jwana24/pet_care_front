@@ -13,22 +13,7 @@ import SelectField from "@/app/components/ReusableComponents/Fields/SelectField"
 import TextareaField from "@/app/components/ReusableComponents/Fields/TextareaField";
 import DragAndDrop from "@/app/components/ReusableComponents/DragAndDrop";
 import Chat from '../../components/assets/chat.jpg';
-
-export type IFormNewAnimal = {
-  picture?:string,
-  specie: string,
-  name: string,
-  breed: string,
-  coat: string
-  gender: string,
-  birthCountry: string,
-  birthDate: Date,
-  identificationType: string,
-  identificationDate: Date,
-  identificationPlace: string,
-  identificationNumber: string,
-  description?:string
-};
+import { IPet } from "@/app/components/types";
 
 const validationSchema = yup.object({
   picture: yup.string(),
@@ -47,14 +32,14 @@ const validationSchema = yup.object({
 });
 
 const AddAnimal = () => {
-  const { handleSubmit, register, watch, setValue, setError, reset, formState: { isValid, errors } } = useForm<IFormNewAnimal>({
+  const { handleSubmit, register, watch, setValue, setError, reset, formState: { isValid, errors } } = useForm<IPet>({
     mode: 'onChange',
     resolver: yupResolver(validationSchema)
   });
   const { authentication } = useContext(AuthContext) as IContext;
 
-  const submitHealthBookInformations = async (data: IFormNewAnimal): Promise<void> => {
-    await requestPost<IFormNewAnimal>('pets', {
+  const submitHealthBookInformations = async (data: IPet): Promise<void> => {
+    await requestPost<IPet>('pets', {
       ...data,
       picture: null,
 
@@ -142,15 +127,13 @@ const AddAnimal = () => {
   ];
 
   return (
-    <>
-      <HeatlhBookForm
-        titlePage="Ajouter un animal"
-        imgSrc={Chat}
-        handleAddAnimal={handleSubmit(submitHealthBookInformations)}
-        fields={generalFields}
-        isValid={isValid}
-      />
-    </>
+    <HeatlhBookForm
+      titlePage="Ajouter un animal"
+      imgSrc={Chat}
+      handleAddAnimal={handleSubmit(submitHealthBookInformations)}
+      fields={generalFields}
+      isValid={isValid}
+    />
   )
 }
 

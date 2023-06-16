@@ -25,7 +25,7 @@ const InputField = ({
 }: IInputField) => {
   return (
     <div className={`mb-5 ${inline ? "flex items-center" : ""}`}>
-      <label htmlFor={name} className={inline ? "w-28" : ""}>{label}</label>
+      <label htmlFor={name} className={inline ? "w-20" : ""}>{label}</label>
         <div className={`${preInput ? "flex" : ""}`}>
           {preInput && (
             <span className={`inline-flex items-center ${!inline && "mt-3.5"} rounded-l-md border-0 py-1.5 px-3.5 sm:text-sm text-gray-900 bg-gray-300`}>

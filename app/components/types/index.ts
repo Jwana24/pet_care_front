@@ -12,13 +12,13 @@ export interface IPet {
   breed: string
   coat: string
   birthCountry: string
-  birthDate: Date
-  deceased: true
-  deceaseDate: Date
-  picture: string
+  birthDate: Date | string
+  deceased?: boolean
+  deceaseDate?: Date | string
+  picture?: string
   identificationType: string
-  identificationDate: Date
+  identificationDate: Date | string
   identificationPlace: string
   identificationNumber: string
-  description: string
+  description?: string
 }

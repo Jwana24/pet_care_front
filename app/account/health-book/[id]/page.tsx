@@ -24,8 +24,6 @@ const HealthBook = ({ params }: { params: { id: number } }) => {
     }
   }, [ authentication?.accessToken, idPet ]);
 
-  console.log(petInfo)
-
   const generalFields = [
     { label: "espèce", value: petInfo?.specie, classnames: "mb-5 mr-2" },
     { label: "nom",    value: petInfo?.name,   classnames: "mb-5" },
