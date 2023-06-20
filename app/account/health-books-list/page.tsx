@@ -1,10 +1,10 @@
 'use client';
 
-import { requestGet } from "@/app/components/utils";
+import { requestGet } from "../../utils";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import AnimalCard from "@/app/account/health-books-list/(AnimalCard)/AnimalCard";
-import { IPet } from "@/app/components/types";
+import { IPet } from "../../types";
 
 const HealthBooksList = () => {
   const [ pets, setPets ] = useState([]);

@@ -7,13 +7,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
-import { requestPost } from "@/app/components/utils";
+import { requestPost } from "../../utils";
 import HeatlhBookForm from "@/app/components/ReusableComponents/Form/HeatlhBookForm";
 import SelectField from "@/app/components/ReusableComponents/Fields/SelectField";
 import TextareaField from "@/app/components/ReusableComponents/Fields/TextareaField";
 import DragAndDrop from "@/app/components/ReusableComponents/DragAndDrop";
 import Chat from '../../components/assets/chat.jpg';
-import { IPet } from "@/app/components/types";
+import { IPet } from "../../types";
 
 const validationSchema = yup.object({
   picture: yup.string(),

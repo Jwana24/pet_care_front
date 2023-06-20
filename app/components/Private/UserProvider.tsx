@@ -2,7 +2,7 @@
 
 import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
-import { isDefined, requestGet } from "@/app/components/utils";
+import { isDefined, requestGet } from "../../utils";
 
 export interface IUser {
   id: string

@@ -8,11 +8,11 @@ import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { requestPost } from "../../utils";
 import { toast } from "react-toastify";
 
-const Login = () => {
+const ForgotPassword = () => {
   const router = useRouter();
   const { setAuthentication } = useContext(AuthContext) as IContext;
 
-  const handleLogin = async (data: IFormInputs): Promise<true | IApiError> => {
+  const handleForgotPassword = async (data: IFormInputs): Promise<true | IApiError> => {
     return await requestPost<IFormInputs>('auth/login', data)
       .then(async (response) => {
         localStorage.setItem('accessToken', JSON.stringify(response.data));
@@ -27,14 +27,14 @@ const Login = () => {
   return (
     <div>
       <CredentialsForm
-        titlePage="Connectez-vous à votre compte"
-        subtitlePage="créez votre compte ici"
-        textBtn="Connexion"
-        urlToRedirect="/signup"
-        onSubmit={handleLogin}
+        forgotPassword
+        titlePage="Mot de passe oublié"
+        subtitlePage="connectez-vous ici"
+        textBtn="Envoyer le code de réinitialisation"
+        onSubmit={handleForgotPassword}
       />
     </div>
   )
 }
 
-export default Login;
+export default ForgotPassword;

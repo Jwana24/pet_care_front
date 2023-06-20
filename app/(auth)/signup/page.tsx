@@ -1,11 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { IApiError } from "@/app/components/types";
+import { IApiError } from "../../types";
 import { useContext } from "react";
 import CredentialsForm, { IFormInputs } from "@/app/components/ReusableComponents/Form/CredentialsForm";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
-import { requestPost } from "@/app/components/utils";
+import { requestPost } from "../../utils";
 import { toast } from "react-toastify";
 
 const SignUp = () => {

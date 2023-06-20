@@ -9,7 +9,7 @@ import * as yup from "yup";
 import InputField from "@/app/components/ReusableComponents/Fields/InputField";
 import SelectField from "@/app/components/ReusableComponents/Fields/SelectField";
 import SubmitButton from "@/app/components/ReusableComponents/Fields/SubmitButton";
-import { requestPatch } from "@/app/components/utils";
+import { requestPatch } from "../../utils";
 import { toast } from "react-toastify";
 
 const validationSchema = yup.object({

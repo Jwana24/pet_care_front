@@ -2,8 +2,8 @@
 
 import { useContext, useEffect, useState } from "react";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
-import { requestGet } from "@/app/components/utils";
-import { IPet } from "@/app/components/types";
+import { requestGet } from "../../../utils";
+import { IPet } from "../../../types";
 import Image from 'next/image';
 import Chat from '../../../components/assets/chat.jpg';
 import dayjs from "dayjs";
@@ -26,10 +26,13 @@ const HealthBook = ({ params }: { params: { id: number } }) => {
   }, [ authentication?.accessToken, idPet ]);
 
   const generalFields = [
-    { label: "espèce", value: petInfo?.specie, classnames: "mb-5 mr-2" },
-    { label: "nom",    value: petInfo?.name,   classnames: "mb-5" },
-    { label: "race",   value: petInfo?.breed,  classnames: "mb-5 mr-2" },
-    { label: "pelage", value: petInfo?.coat,   classnames: "mb-5" }
+    ...(petInfo?.deceased ? [
+      { label: "date de décès", value: dayjs(petInfo?.deceaseDate).format("DD-MM-YYYY"), classnames: "mb-5 mr-2 col-span-2" }
+    ] : []),
+    { label: "espèce", value: petInfo?.specie,   classnames: "mb-5 mr-2" },
+    { label: "nom",    value: petInfo?.name,     classnames: "mb-5" },
+    { label: "race",   value: petInfo?.breed,    classnames: "mb-5 mr-2" },
+    { label: "pelage", value: petInfo?.coat,     classnames: "mb-5" }
   ];
 
   const complementaryField = [
@@ -42,7 +45,8 @@ const HealthBook = ({ params }: { params: { id: number } }) => {
     { label: "type d'identification",   value: petInfo?.identificationType,   classnames: "mr-2 col-span-2 lg:col-span-1" },
     { label: "date d'identification",   value: dayjs(petInfo?.identificationDate).format("DD-MM-YYYY"), classnames: "lg:mr-2 col-span-2 lg:col-span-1" },
     { label: "lieu d'identification",   value: petInfo?.identificationPlace,  classnames: "col-span-4 lg:col-span-2" },
-    { label: "numéro d'identification", value: petInfo?.identificationNumber, classnames: "col-span-2 lg:col-span-1" }
+    { label: "numéro d'identification", value: petInfo?.identificationNumber, classnames: "col-span-2 lg:col-span-1" },
+    { label: "description",             value: petInfo?.description,          classnames: "col-span-4" }
   ]
 
   return (

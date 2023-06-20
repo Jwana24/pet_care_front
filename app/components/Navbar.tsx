@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { HomeIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
-import { isDefined, isTokenValid } from "@/app/components/utils";
+import { isDefined, isTokenValid } from "../utils";
 
 const Navbar = () => {
   const { authentication } = useContext(AuthContext) as IContext;

@@ -6,7 +6,7 @@ import { IUser, IUserContext, UserContext } from "@/app/components/Private/UserP
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { requestPatch } from "@/app/components/utils";
+import { requestPatch } from "../../utils";
 import * as yup from "yup";
 import InputField from "@/app/components/ReusableComponents/Fields/InputField";
 import PasswordField from "@/app/components/ReusableComponents/Fields/PasswordField";

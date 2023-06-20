@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { IPet } from "@/app/components/types";
+import { IPet } from "../../../types";
 import Image from "next/image";
 import DefaultImage from "@/app/components/assets/default_image.png";
 import { EyeIcon } from "@heroicons/react/24/outline";

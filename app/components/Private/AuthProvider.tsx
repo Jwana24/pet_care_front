@@ -2,7 +2,8 @@
 
 import React, { Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { isTokenValid } from "@/app/components/utils";
+import { isTokenValid } from "../../utils";
+import { routeWithoutAuthentication } from "@/app/components/constants";
 
 export interface IContext {
   authentication: null | IAuthElement
@@ -36,7 +37,7 @@ const AuthProvider = ({ children }: IProvider) => {
   }, []);
 
   useEffect(() => {
-    if ((authentication && !isTokenValid(authentication)) && !['/', '/login', '/signup'].includes(pathname)) {
+    if ((authentication && !isTokenValid(authentication)) && !routeWithoutAuthentication.includes(pathname)) {
       router.push("/login");
     }
   }, [authentication, pathname, router]);
