@@ -13,7 +13,7 @@ import SelectField from "@/app/components/ReusableComponents/Fields/SelectField"
 import TextareaField from "@/app/components/ReusableComponents/Fields/TextareaField";
 import DragAndDrop from "@/app/components/ReusableComponents/DragAndDrop";
 import Chat from '../../components/assets/chat.jpg';
-import { IPet } from "../../types";
+import { IPetFormAdd } from "../../types";
 
 const validationSchema = yup.object({
   picture: yup.string(),
@@ -32,14 +32,14 @@ const validationSchema = yup.object({
 });
 
 const AddAnimal = () => {
-  const { handleSubmit, register, watch, setValue, setError, reset, formState: { isValid, errors } } = useForm<IPet>({
+  const { handleSubmit, register, watch, setValue, setError, reset, formState: { isValid, errors } } = useForm<IPetFormAdd>({
     mode: 'onChange',
-    resolver: yupResolver(validationSchema)
+    resolver: yupResolver<IPetFormAdd>(validationSchema)
   });
   const { authentication } = useContext(AuthContext) as IContext;
 
-  const submitHealthBookInformations = async (data: IPet): Promise<void> => {
-    await requestPost<IPet>('pets', {
+  const submitHealthBookInformations = async (data: IPetFormAdd): Promise<void> => {
+    await requestPost<IPetFormAdd>('pets', {
       ...data,
       picture: null,
 

@@ -4,6 +4,9 @@ export interface IApiError {
   error: string
 }
 
+export interface IPetFormEdit extends Omit<IPet, "id">{}
+export interface IPetFormAdd extends Omit<IPet, "id"|"deceased"|"deceaseDate">{}
+
 export interface IPet {
   id: number
   specie: string

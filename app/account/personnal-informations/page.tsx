@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useContext, useEffect } from "react";
-import { IPetOwner, IUserContext, UserContext } from "@/app/components/Private/UserProvider";
+import { IPetOwnerEdit, IUserContext, UserContext } from "@/app/components/Private/UserProvider";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -27,13 +27,13 @@ const PersonnalInfos = () => {
   const { user, setUser } = useContext(UserContext) as IUserContext;
   const { authentication } = useContext(AuthContext) as IContext;
 
-  const { handleSubmit, register, reset, formState: { isValid, errors } } = useForm<IPetOwner>({
+  const { handleSubmit, register, reset, formState: { isValid, errors } } = useForm<IPetOwnerEdit>({
     mode: 'onChange',
-    resolver: yupResolver(validationSchema)
+    resolver: yupResolver<IPetOwnerEdit>(validationSchema)
   });
 
-  const submitUser = (data: IPetOwner) => {
-    requestPatch<IPetOwner>(`petOwners/${user?.petOwner?.id}`, {
+  const submitUser = (data: IPetOwnerEdit) => {
+    requestPatch<IPetOwnerEdit>(`petOwners/${user?.petOwner?.id}`, {
       ...data,
       id: undefined,
       phone: `+33${data.phone}`

@@ -56,7 +56,7 @@ const CredentialsForm = ({
 }: ICredentialsForm) => {
   const { handleSubmit, register, setError, formState: { isValid, errors }, reset } = useForm<IFormInputs>({
     mode: 'onChange',
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver<IFormInputs>(validationSchema),
     context: { isSignUpForm: isSignUpForm }
   });
 

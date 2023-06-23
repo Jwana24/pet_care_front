@@ -3,6 +3,9 @@
 import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { isDefined, requestGet } from "../../utils";
+import { IPet } from "@/app/types";
+
+export interface IUserForm extends Omit<IUser, "id"|"createdAt"|"updatedAt"|"petOwner">{}
 
 export interface IUser {
   id: string
@@ -14,6 +17,7 @@ export interface IUser {
   petOwner: IPetOwner
 }
 
+export interface IPetOwnerEdit extends Omit<IPetOwner, "id">{}
 export interface IPetOwner {
   id: string
   gender: string

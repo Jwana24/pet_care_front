@@ -2,7 +2,7 @@
 
 import SubmitButton from "@/app/components/ReusableComponents/Fields/SubmitButton";
 import React, { useContext, useEffect } from "react";
-import { IUser, IUserContext, UserContext } from "@/app/components/Private/UserProvider";
+import { IUserContext, IUserForm, UserContext } from "@/app/components/Private/UserProvider";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -25,15 +25,14 @@ const AccountParameters = () => {
   const { user, setUser } = useContext(UserContext) as IUserContext;
   const { authentication } = useContext(AuthContext) as IContext;
 
-  const { handleSubmit, register, reset, formState: { isValid, errors } } = useForm<IUser>({
+  const { handleSubmit, register, reset, formState: { isValid, errors } } = useForm<IUserForm>({
     mode: 'onChange',
-    resolver: yupResolver(validationSchema)
+    resolver: yupResolver<IUserForm>(validationSchema)
   });
 
-  const submitUserParameters = (data: IUser) => {
-    requestPatch<IUser>(`users/${user?.id}`, {
+  const submitUserParameters = (data: IUserForm) => {
+    requestPatch<IUserForm>(`users/${user?.id}`, {
       ...data,
-      id: undefined,
       password: data.password === "" ? undefined : data.password,
       confirmPassword: undefined
 

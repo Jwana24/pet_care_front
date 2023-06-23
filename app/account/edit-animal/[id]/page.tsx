@@ -8,8 +8,8 @@ import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import * as yup from "yup";
 import dayjs from "dayjs";
 import DragAndDrop from "@/app/components/ReusableComponents/DragAndDrop";
-import { isDefined, requestGet, requestPatch } from "../../../utils";
-import { IPet } from "../../../types";
+import { isDefined, requestGet, requestPatch } from "@/app/utils";
+import { IPetFormEdit } from "@/app/types";
 import { toast } from "react-toastify";
 import InputField from "@/app/components/ReusableComponents/Fields/InputField";
 import SelectField from "@/app/components/ReusableComponents/Fields/SelectField";
@@ -40,17 +40,17 @@ const validationSchema = yup.object({
 });
 
 const EditAnimal = ({ params }: { params: { id: number } }) => {
-  const { handleSubmit, register, watch, setValue, setError, reset, formState: { isValid, errors } } = useForm<IPet>({
+  const { handleSubmit, register, watch, setValue, setError, reset, formState: { isValid, errors } } = useForm<IPetFormEdit>({
     mode: 'onChange',
-    resolver: yupResolver(validationSchema)
+    resolver: yupResolver<IPetFormEdit>(validationSchema) // erreur parce que "picture" est commenté pour le moment dans le validationSchema de Yup
   });
   const { authentication } = useContext(AuthContext) as IContext;
   const idPet = params.id;
-  const [ petInfo, setPetInfo ] = useState<IPet|null>(null);
+  const [ petInfo, setPetInfo ] = useState<IPetFormEdit|null>(null);
 
   useEffect(() => {
     if (authentication?.accessToken) {
-      requestGet<IPet>(`pets/${idPet}`, authentication?.accessToken)
+      requestGet<IPetFormEdit>(`pets/${idPet}`, authentication?.accessToken)
         .then((response) => {
           const birthDate = new Date(response?.data?.birthDate);
           const deceaseDate = isDefined(response?.data.deceaseDate) ? new Date(response?.data.deceaseDate) : null;
@@ -73,7 +73,7 @@ const EditAnimal = ({ params }: { params: { id: number } }) => {
     }
   }, [reset, petInfo, setValue]);
 
-  const submitEditAnimal = (data: IPet) => {
+  const submitEditAnimal = (data: IPetFormEdit) => {
     const dataWithFormattedDates = {
       ...data,
       birthDate: dayjs(data.birthDate).toISOString(),
@@ -81,7 +81,7 @@ const EditAnimal = ({ params }: { params: { id: number } }) => {
       identificationDate: dayjs(data.identificationDate).toISOString()
     }
 
-    requestPatch<IPet>(`pets/${idPet}`, dataWithFormattedDates, authentication?.accessToken)
+    requestPatch<IPetFormEdit>(`pets/${idPet}`, dataWithFormattedDates, authentication?.accessToken)
       .then((response) => {
         const birthDate = new Date(response?.data?.birthDate);
         const deceaseDate = isDefined(response?.data.deceaseDate) ? new Date(response?.data.deceaseDate) : null;
