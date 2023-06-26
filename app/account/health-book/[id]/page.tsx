@@ -2,8 +2,8 @@
 
 import { useContext, useEffect, useState } from "react";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
-import { requestGet } from "../../../utils";
-import { IPet } from "../../../types";
+import { requestGet } from "@/app/utils";
+import { IPet } from "@/app/types";
 import Image from 'next/image';
 import Chat from '../../../components/assets/chat.jpg';
 import dayjs from "dayjs";

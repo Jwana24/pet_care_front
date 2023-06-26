@@ -40,13 +40,10 @@ const AddAnimal = () => {
 
   const submitHealthBookInformations = async (data: IPetFormAdd): Promise<void> => {
     await requestPost<IPetFormAdd>('pets', {
-      ...data,
-      picture: null,
-
+      ...data
     }, authentication?.accessToken)
       .then(async (response) => {
         if (!response) {
-          // setError('password', { type: requestStatus.statusCode.toString(), message: requestStatus.message });
           toast.error("Un problème est survenu lors de l'envoi du formulaire");
           console.log('error');
         }
@@ -61,7 +58,7 @@ const AddAnimal = () => {
 
   const generalFields = [
     {
-      component: <DragAndDrop name="picture" fileType={"image/png, image/jpeg"} register={register} watch={watch} setValue={setValue} errors={errors.picture?.message} />,
+      component: <DragAndDrop fileType={"image/png, image/jpeg"} name="picture" register={register} watch={watch} setValue={setValue} errors={errors.picture?.message} />,
       classnames: "col-span-12 mb-5"
     },
     {

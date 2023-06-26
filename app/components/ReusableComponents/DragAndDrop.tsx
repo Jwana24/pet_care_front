@@ -16,7 +16,16 @@ const DragAndDrop = ({ name, fileType, register, watch, setValue, errors, ...res
   const [ dragActive, setDragActive ] = useState(false);
   const [ img, setImg ] = useState<string>("");
   const { ref, onChange, ...restRegister } = register(name);
-  const currentValue: FileList|undefined = watch(name);
+  const currentValue: FileList|undefined|string = watch(name);
+
+  const fileToBase64 = (file: FileList): Promise<string> => {
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+      reader.readAsDataURL(file[0]);
+      reader.onload = () => resolve(reader?.result as string);
+      reader.onerror = error => reject(error);
+    });
+  };
 
   const handleDrag = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -28,12 +37,13 @@ const DragAndDrop = ({ name, fileType, register, watch, setValue, errors, ...res
     }
   };
 
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+  const handleDrop = async (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      setValue(name, e.dataTransfer.files)
+      const base64 = await fileToBase64(e.dataTransfer.files);
+      setValue(name, base64);
     }
   };
 
@@ -43,12 +53,11 @@ const DragAndDrop = ({ name, fileType, register, watch, setValue, errors, ...res
 
   useEffect(() => {
     if (currentValue && currentValue[0]) {
-      const reader = new FileReader();
-
-      reader.readAsDataURL(currentValue[0]);
-
-      reader.onload = function () {
-        setImg(reader.result as string);
+      if (typeof currentValue === "string") {
+        setImg(currentValue);
+      } else {
+        fileToBase64(currentValue)
+          .then(data => setImg(data));
       }
     }
   }, [currentValue]);

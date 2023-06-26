@@ -24,7 +24,10 @@ const SignUp = () => {
         toast.success("Bienvenue !", { icon: "🙌" });
         return true;
       })
-      .catch((e) => e.response.data)
+      .catch((e) => {
+        // setError('password', { type: requestStatus.statusCode.toString(), message: requestStatus.message });
+        return e.response.data
+      })
   }
 
   return (
