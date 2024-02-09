@@ -14,6 +14,9 @@ module.exports = {
         'darker-main-color': '#0c4a6e'
       }
     },
+    fontFamily: {
+      'stylish': ['Bachelorette']
+    }
   },
   plugins: [],
 }

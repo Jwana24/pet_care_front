@@ -4,14 +4,13 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { AuthContext, IContext } from "@/app/components/Private/AuthProvider";
 import { HomeIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
-import { isDefined, isTokenValid } from "../utils";
+import { isTokenValid } from "../utils";
 
 const Navbar = () => {
   const { authentication } = useContext(AuthContext) as IContext;
 
   return (
     <div className="flex items-center max-h-20 bg-main-color">
-      {/*<div className="container flex justify-between mx-auto">*/}
       <div className="flex w-full justify-between">
         <div className="Logo pl-8">
           <Link href='/'>Pet care</Link>

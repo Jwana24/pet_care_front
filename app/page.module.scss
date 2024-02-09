@@ -1,5 +1,17 @@
-//@import "mixins.module";
-//
-//.Homepage {
-//  @include flex(null, null, center);
-//}
+.ImageContainer {
+    position: relative;
+    height: 80vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom 100px center;
+    overflow: hidden;
+    z-index: 1;
+
+    .waves {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+    }
+}
